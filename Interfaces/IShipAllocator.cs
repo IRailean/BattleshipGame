@@ -9,6 +9,7 @@ namespace BattleshipGame.Interfaces
 {
     public interface IShipAllocator
     {
-        AllocationParameters AllocateShip(IGrid grid, Ship ship);
+        AllocationParameters AllocateShip(Ship ship);
+        void AddShip(Ship ship);
     }
 }

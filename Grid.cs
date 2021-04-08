@@ -10,13 +10,11 @@ namespace BattleshipGame
     {
         private readonly int _width;
         private readonly int _height;
-        private IShipAllocator _shipAllocator { get; set; }
-        private List<List<Cell>> Cells { get; set; }
-        public Grid(int width, int height, IShipAllocator shipAllocator)
+        private List<List<Cell>> Cells { get ; set; }
+        public Grid(int width, int height)
         {
             _width = width;
             _height = height;
-            _shipAllocator = shipAllocator;
 
             InitializeCells();
         }
@@ -30,6 +28,7 @@ namespace BattleshipGame
             return AreValidCoords(x, y) ? Cells[x][y].Ship : null;
         }
 
+        public Cell GetCell(int x, int y) => AreValidCoords(x, y) ? Cells[x][y] : null;
         public State GetCellState(int x, int y)
         {
             return AreValidCoords(x, y) ? Cells[x][y].State : State.Default;
@@ -45,15 +44,6 @@ namespace BattleshipGame
         private bool AreValidCoords(int x, int y)
         {
             return (x >= 0 && x < Cells.Count && y >= 0 && y < Cells.Count);
-        }
-        public void AddShip(Ship ship)
-        {
-            var allocationParameters = _shipAllocator.AllocateShip(this, ship);
-
-            if (allocationParameters is not null)
-            {
-                PutShip(allocationParameters, ship);
-            }
         }
 
         public void ShowGrid()
@@ -105,23 +95,6 @@ namespace BattleshipGame
                     row.Add(new Cell());
                 }
                 Cells.Add(row);
-            }
-        }
-        private void PutShip(AllocationParameters allocationParameters, Ship ship)
-        {
-            if (allocationParameters.Direction == Direction.Horizontal)
-            {
-                for (int i = allocationParameters.StartPosX; i < allocationParameters.StartPosX + ship.Size; i++)
-                {
-                    Cells[allocationParameters.StartPosY][i].SetShip(ship);
-                }
-            }
-            else if (allocationParameters.Direction == Direction.Vertical)
-            {
-                for (int i = allocationParameters.StartPosY; i < allocationParameters.StartPosY + ship.Size; i++)
-                {
-                    Cells[i][allocationParameters.StartPosX].SetShip(ship);
-                }
             }
         }
     }

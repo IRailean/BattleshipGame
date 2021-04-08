@@ -12,10 +12,10 @@ namespace BattleshipGame.Interfaces
     {
         int GetSize();
         Ship GetShipAt(int x, int y);
+        Cell GetCell(int x, int y);
         State GetCellState(int x, int y);
         void SetCellState(int x, int y, State newState);
         void ShowGrid();
         void ShowGridSecret();
-        void AddShip(Ship ship);
     }
 }

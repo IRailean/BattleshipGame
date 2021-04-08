@@ -9,9 +9,10 @@ namespace BattleshipGame
     {
         public Game()
         {
-            var shipAllocator = new ShipAllocator();
-            var grid = new Grid(10, 10, shipAllocator);
-            if (grid is null)
+            var grid = new Grid(10, 10);
+
+            var shipAllocator = new ShipAllocator(grid);
+            if (shipAllocator is null)
             {
                 Console.WriteLine("NULL");
             }
@@ -19,8 +20,8 @@ namespace BattleshipGame
             string command = "";
 
             var ship = new Battleship();
-            grid.AddShip(ship);
-            grid.AddShip(ship);
+            shipAllocator.AddShip(ship);
+            shipAllocator.AddShip(ship);
 
             grid.ShowGrid();
 
