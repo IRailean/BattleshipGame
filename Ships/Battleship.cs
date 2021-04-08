@@ -8,7 +8,6 @@ namespace BattleshipGame.Ships
     {
         public Battleship() : base("Battleship", 5)
         {
-            Console.WriteLine("Battleship created");
         }
     }
 }

@@ -8,7 +8,6 @@ namespace BattleshipGame.Ships
     {
         public Destroyer() : base("Destroyer", 4)
         {
-            Console.WriteLine("Destroyer created");
         }
     }
 }

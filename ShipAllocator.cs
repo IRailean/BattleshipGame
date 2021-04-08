@@ -20,18 +20,33 @@ namespace BattleshipGame
         public AllocationParameters AllocateShip(Ship ship)
         {
             var allocationParams = GetStartPositionAndDirection(ship);
+            
+            if (allocationParams is null)
+            {
+                Console.WriteLine($"Not able to allocate {ship.Name}");
+            }
 
             return allocationParams;
         }
+        public void AddShip(Ship ship)
+        {
+            var allocationParams = AllocateShip(ship);
 
+            if (allocationParams is not null)
+            {
+                PutShip(ship, allocationParams);
+            }
+        }
         private AllocationParameters GetStartPositionAndDirection(Ship ship)
         {
             Random random = new Random();
-            int numOfAttempts = 10;
+            int numOfAttempts = _grid.GetSize() * _grid.GetSize() * 2;
             var allocationParams = new AllocationParameters();
 
             int attempts = 0;
             int gridSize = _grid.GetSize();
+            bool success = false;
+
             while (attempts < numOfAttempts)
             {
                 allocationParams.Direction = (Direction)random.Next(0, 2);
@@ -44,8 +59,14 @@ namespace BattleshipGame
                                                 ? random.Next(0, gridSize - ship.Size + 1)
                                                 : random.Next(0, gridSize);
 
-                if (!ShipCanBePlaced(ship, allocationParams)) break;
+                success = ShipCanBePlaced(ship, allocationParams);
+                if (success) break;
                 attempts++;
+            }
+
+            if (!success)
+            {
+                return null;
             }
 
             return allocationParams;
@@ -59,7 +80,7 @@ namespace BattleshipGame
                 {
                     if (_grid.GetShipAt(new Coordinates{X = allocationParams.StartPosY, Y = i}) is not null)
                     {
-                        return true;
+                        return false;
                     }
                 }
             }
@@ -69,21 +90,12 @@ namespace BattleshipGame
                 {
                     if (_grid.GetShipAt(new Coordinates{X = i, Y = allocationParams.StartPosX}) is not null)
                     {
-                        return true;
+                        return false;
                     }
                 }
             }
 
-            return false;
-        }
-        public void AddShip(Ship ship)
-        {
-            var allocationParams = AllocateShip(ship);
-
-            if (allocationParams is not null)
-            {
-                PutShip(ship, allocationParams);
-            }
+            return true;
         }
         private void PutShip(Ship ship, AllocationParameters allocationParams)
         {

@@ -22,7 +22,7 @@ namespace BattleshipGame.Ships
 
             if (CurrentXP == 0 && !IsSunk)
             {
-                Console.WriteLine("Ship is sunk!");
+                Console.WriteLine($"You have sunk {Name}!");
                 IsSunk = true;
             }
         }

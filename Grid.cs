@@ -43,6 +43,7 @@ namespace BattleshipGame
 
         private bool AreValidCoords(Coordinates coordinates)
         {
+            if (coordinates is null) return false;
             return (coordinates.X >= 0 && coordinates.X < Cells.Count && coordinates.Y >= 0 && coordinates.Y < Cells.Count);
         }
 
@@ -68,11 +69,24 @@ namespace BattleshipGame
                         State.HasShipNotChecked => isHidden ? 'O' : 'S',
                         _ => 'O'
                     };
+                    SetConsoleColor(mark);
                     Console.Write($"{mark} ", mark);
+                    ResetConsoleColor();
                 }
                 Console.WriteLine();
             }
         }
+        private void SetConsoleColor(char mark)
+        {
+            switch (mark)
+            {
+                case 'O': Console.ForegroundColor = ConsoleColor.Green; break;
+                case 'S': Console.ForegroundColor = ConsoleColor.Red; break;
+                case 'X': Console.ForegroundColor = ConsoleColor.Yellow; break;
+                default: Console.ForegroundColor = ConsoleColor.White; break;
+            }
+        }
+        private void ResetConsoleColor() => Console.ForegroundColor = ConsoleColor.White;
         private void DrawFirstRow()
         {
             Console.Write("     ");
