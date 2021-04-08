@@ -27,25 +27,30 @@ namespace BattleshipGame.Games
 
             while (NumberOfShips != 0)
             {
-                Console.WriteLine("Please enter coordinates to shoot, write 'STOP' to exit the game: ");
-                string command = Console.ReadLine();
-
-                if (command == "STOP") break;
-
-                var coords = ProcessCommand(command);
-                if (coords is null)
-                {
-                    Console.WriteLine($"Command {command} is incorrect, try one more time");
-                    continue;
-                }
-                Console.Clear();
-                MakeMove(coords);
-                _grid.ShowGrid(true);
+                if (!PlayRound()) break;
             }
 
             PrintClosingMessage();
         }
+        private bool PlayRound()
+        {
+            Console.WriteLine("Please enter coordinates to shoot, write 'STOP' to exit the game: ");
+            string command = Console.ReadLine();
 
+            if (command == "STOP") return false;
+
+            var coords = ProcessCommand(command);
+            if (coords is null)
+            {
+                Console.WriteLine($"Command {command} is incorrect, try one more time");
+                return true;
+            }
+            Console.Clear();
+            MakeMove(coords);
+            _grid.ShowGrid(true);
+
+            return true;
+        }
         private void PrintWelcomeMessage() => Console.WriteLine("Welcome to Battleship game!");
         private void PrintClosingMessage()
         {
