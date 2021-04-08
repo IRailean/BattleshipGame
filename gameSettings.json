@@ -5,7 +5,7 @@
     },
 
     "Ships": {
-        "Battleship": 0,
-        "Destroyer": 1
+        "Battleship": 1,
+        "Destroyer": 2
     }
 }
