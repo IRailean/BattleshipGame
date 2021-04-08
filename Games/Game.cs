@@ -23,7 +23,6 @@ namespace BattleshipGame.Games
 
         private void PlayGame()
         {
-            _grid.ShowGrid(false);
             PrintWelcomeMessage();
 
             while (NumberOfShips != 0)
