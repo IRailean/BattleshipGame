@@ -37,13 +37,15 @@ namespace BattleshipGame
                 {
                     int x = command[0] - 'A';
                     int y = command[1] - '0' - 1;
-                    var state = grid.GetCellState(x, y);
+                    var coords = new Coordinates{X = x, Y = y};
+
+                    var state = grid.GetCellState(coords);
                     Console.WriteLine($"Getting state at {x}, {y}: {state}");
 
                     if (state == State.EmptyNotChecked)
                     {
                         Console.WriteLine("Miss!");
-                        grid.SetCellState(x, y, State.EmptyChecked);
+                        grid.SetCellState(coords, State.EmptyChecked);
                     }
                     else if (state == State.EmptyChecked)
                     {
@@ -52,10 +54,10 @@ namespace BattleshipGame
                     else if (state == State.HasShipNotChecked)
                     {
                         Console.WriteLine("Hit!");
-                        grid.SetCellState(x, y, State.HasShipChecked);
-                        grid.GetShipAt(x, y).Hit();
+                        grid.SetCellState(coords, State.HasShipChecked);
+                        grid.GetShipAt(coords).Hit();
 
-                        if (grid.GetShipAt(x, y).IsSunk)
+                        if (grid.GetShipAt(coords).IsSunk)
                         {
                             NumberOfShips--;
                         }
@@ -79,6 +81,6 @@ namespace BattleshipGame
                 .AddJsonFile("gameSettings.json")
                 .Build();
         }
-        
+
     }
 }

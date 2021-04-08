@@ -11,10 +11,10 @@ namespace BattleshipGame.Interfaces
     public interface IGrid
     {
         int GetSize();
-        Ship GetShipAt(int x, int y);
-        Cell GetCell(int x, int y);
-        State GetCellState(int x, int y);
-        void SetCellState(int x, int y, State newState);
+        Ship GetShipAt(Coordinates coordinates);
+        Cell GetCell(Coordinates coordinates);
+        State GetCellState(Coordinates coordinates);
+        void SetCellState(Coordinates coordinates, State newState);
         void ShowGrid();
         void ShowGridSecret();
     }

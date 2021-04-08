@@ -57,7 +57,7 @@ namespace BattleshipGame
             {
                 for (int i = allocationParams.StartPosX; i < allocationParams.StartPosX + ship.Size; i++)
                 {
-                    if (_grid.GetShipAt(allocationParams.StartPosY, i) is not null)
+                    if (_grid.GetShipAt(new Coordinates{X = allocationParams.StartPosY, Y = i}) is not null)
                     {
                         return true;
                     }
@@ -67,7 +67,7 @@ namespace BattleshipGame
             {
                 for (int i = allocationParams.StartPosY; i < allocationParams.StartPosY + ship.Size; i++)
                 {
-                    if (_grid.GetShipAt(i, allocationParams.StartPosX) is not null)
+                    if (_grid.GetShipAt(new Coordinates{X = i, Y = allocationParams.StartPosX}) is not null)
                     {
                         return true;
                     }
@@ -91,14 +91,14 @@ namespace BattleshipGame
             {
                 for (int i = allocationParams.StartPosX; i < allocationParams.StartPosX + ship.Size; i++)
                 {
-                    _grid.GetCell(allocationParams.StartPosY, i).SetShip(ship);
+                    _grid.GetCell(new Coordinates{ X = allocationParams.StartPosY, Y = i}).SetShip(ship);
                 }
             }
             else if (allocationParams.Direction == Direction.Vertical)
             {
                 for (int i = allocationParams.StartPosY; i < allocationParams.StartPosY + ship.Size; i++)
                 {
-                    _grid.GetCell(i, allocationParams.StartPosX).SetShip(ship);
+                    _grid.GetCell(new Coordinates{X = i, Y = allocationParams.StartPosX}).SetShip(ship);
                 }
             }
         }

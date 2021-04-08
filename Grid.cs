@@ -23,27 +23,27 @@ namespace BattleshipGame
         {
             return Cells.Count;
         }
-        public Ship GetShipAt(int x, int y)
+        public Ship GetShipAt(Coordinates coordinates)
         {
-            return AreValidCoords(x, y) ? Cells[x][y].Ship : null;
+            return AreValidCoords(coordinates) ? Cells[coordinates.X][coordinates.Y].Ship : null;
         }
 
-        public Cell GetCell(int x, int y) => AreValidCoords(x, y) ? Cells[x][y] : null;
-        public State GetCellState(int x, int y)
+        public Cell GetCell(Coordinates coordinates) => AreValidCoords(coordinates) 
+            ? Cells[coordinates.X][coordinates.Y] : null;
+        public State GetCellState(Coordinates coordinates) => AreValidCoords(coordinates) 
+            ? Cells[coordinates.X][coordinates.Y].State : State.Default;
+
+        public void SetCellState(Coordinates coordinates, State newState)
         {
-            return AreValidCoords(x, y) ? Cells[x][y].State : State.Default;
-        }
-        public void SetCellState(int x, int y, State newState)
-        {
-            if (AreValidCoords(x, y))
+            if (AreValidCoords(coordinates))
             {
-                Cells[x][y].ChangeState(newState);
+                Cells[coordinates.X][coordinates.Y].ChangeState(newState);
             }
         }
 
-        private bool AreValidCoords(int x, int y)
+        private bool AreValidCoords(Coordinates coordinates)
         {
-            return (x >= 0 && x < Cells.Count && y >= 0 && y < Cells.Count);
+            return (coordinates.X >= 0 && coordinates.X < Cells.Count && coordinates.Y >= 0 && coordinates.Y < Cells.Count);
         }
 
         public void ShowGrid()
