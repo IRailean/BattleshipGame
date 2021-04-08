@@ -11,67 +11,38 @@ namespace BattleshipGame
     public class Game
     {
         private int NumberOfShips { get; set; }
+        public IGrid _grid { get; set; }
         public Game()
         {
             var config = ReadConfig();
 
-            var grid = new Grid(config.GetValue<int>("GridSize:Width"), config.GetValue<int>("GridSize:Height"));
+            _grid = new Grid(config.GetValue<int>("GridSize:Width"), config.GetValue<int>("GridSize:Height"));
 
-            var shipsCreator = new ShipsCreator(new ShipAllocator(grid), 
+            var shipsCreator = new ShipsCreator(new ShipAllocator(_grid), 
                 config.GetSection("Ships").Get<Dictionary<string, string>>());
             
-            //Ass ships
+            //Add ships
             shipsCreator.CreateShips();
             NumberOfShips = shipsCreator.NumberOfShipsCreated;
 
-            string command = "";
+            PlayGame();
+        }
 
-            grid.ShowGrid();
+        private void PlayGame()
+        {
+            _grid.ShowGrid();
 
             while (NumberOfShips != 0)
             {
-                command = Console.ReadLine();
+                string command = Console.ReadLine();
+
                 if (command == "STOP") break;
 
-                if (command.Length == 2)
-                {
-                    int x = command[0] - 'A';
-                    int y = command[1] - '0' - 1;
-                    var coords = new Coordinates{X = x, Y = y};
+                var coords = ProcessCommand(command);
 
-                    var state = grid.GetCellState(coords);
-                    Console.WriteLine($"Getting state at {x}, {y}: {state}");
-
-                    if (state == State.EmptyNotChecked)
-                    {
-                        Console.WriteLine("Miss!");
-                        grid.SetCellState(coords, State.EmptyChecked);
-                    }
-                    else if (state == State.EmptyChecked)
-                    {
-                        Console.WriteLine("Miss!");
-                    }
-                    else if (state == State.HasShipNotChecked)
-                    {
-                        Console.WriteLine("Hit!");
-                        grid.SetCellState(coords, State.HasShipChecked);
-                        grid.GetShipAt(coords).Hit();
-
-                        if (grid.GetShipAt(coords).IsSunk)
-                        {
-                            NumberOfShips--;
-                        }
-                    }
-                    else if (state == State.HasShipChecked)
-                    {
-                        Console.WriteLine("You have already hit this ship!");
-                    }
-
-                    grid.ShowGridSecret();
-                }
+                MakeMove(coords);
+                _grid.ShowGridSecret();
             }
-
-            Console.WriteLine("Hello world");
         }
 
         private IConfiguration ReadConfig()
@@ -82,5 +53,57 @@ namespace BattleshipGame
                 .Build();
         }
 
+        private Coordinates ProcessCommand(string command)
+        {
+            if (command.Length != 2) 
+            {
+                return null;
+            }
+            int x = command[0] - 'A';
+            int y = command[1] - '0' - 1;
+            if (x < 0 || x > _grid.GetSize() || y < 0 || y > _grid.GetSize())
+            {
+                return null;
+            }
+
+            return new Coordinates{X = x, Y = y};
+        }
+
+        private void MakeMove(Coordinates coordinates)
+        {
+            var state = _grid.GetCellState(coordinates);
+            
+            if (state == State.EmptyNotChecked)
+            {
+               MissAction(coordinates);
+            }
+            else if (state == State.HasShipNotChecked)
+            {
+                HitAction(coordinates);
+            }
+            else
+            {
+                Console.WriteLine("You`ve already checked this location!");
+            }
+        }
+
+        private void MissAction(Coordinates coordinates)
+        {
+             Console.WriteLine("Miss!");
+            _grid.SetCellState(coordinates, State.EmptyChecked);
+        }
+
+        private void HitAction(Coordinates coordinates)
+        {
+            Console.WriteLine("Hit!");
+
+            _grid.SetCellState(coordinates, State.HasShipChecked);
+            _grid.GetShipAt(coordinates).Hit();
+
+            if (_grid.GetShipAt(coordinates).IsSunk)
+            {
+                NumberOfShips--;
+            }
+        }
     }
 }
