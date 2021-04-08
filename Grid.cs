@@ -46,18 +46,26 @@ namespace BattleshipGame
             return (coordinates.X >= 0 && coordinates.X < Cells.Count && coordinates.Y >= 0 && coordinates.Y < Cells.Count);
         }
 
-        public void ShowGrid()
+        public void ShowGrid(bool isHidden)
         {
             for (int i = 0; i < Cells.Count; i++)
             {
+                if (i == 0)
+                {
+                    DrawFirstRow();
+                }
                 for (int j = 0; j < Cells[0].Count; j++)
                 {
+                    if (j == 0)
+                    {
+                        Console.Write($"{(Char)(i + 'A')}  | ");
+                    }
                     char mark = Cells[i][j].State switch
                     {
                         State.EmptyChecked => 'X',
                         State.EmptyNotChecked => 'O',
                         State.HasShipChecked => 'S',
-                        State.HasShipNotChecked => 'S',
+                        State.HasShipNotChecked => isHidden ? 'O' : 'S',
                         _ => 'O'
                     };
                     Console.Write($"{mark} ", mark);
@@ -65,23 +73,20 @@ namespace BattleshipGame
                 Console.WriteLine();
             }
         }
-        public void ShowGridSecret()
+        private void DrawFirstRow()
         {
-            for (int i = 0; i < Cells.Count; i++)
+            Console.Write("     ");
+            for (int j = 0; j < Cells.Count; j++)
             {
-                for (int j = 0; j < Cells[0].Count; j++)
-                {
-                    char mark = Cells[i][j].State switch
-                    {
-                        State.EmptyChecked => 'X',
-                        State.EmptyNotChecked => 'O',
-                        State.HasShipChecked => 'S',
-                        _ => 'O'
-                    };
-                    Console.Write($"{mark} ", mark);
-                }
-                Console.WriteLine();
+                Console.Write($"{j + 1} ");
             }
+            Console.WriteLine();
+            Console.Write("     ");
+            for (int j = 0; j < Cells.Count; j++)
+            {
+                Console.Write($"_ ");
+            }
+            Console.WriteLine();
         }
 
         private void InitializeCells()

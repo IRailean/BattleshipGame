@@ -15,7 +15,6 @@ namespace BattleshipGame.Interfaces
         Cell GetCell(Coordinates coordinates);
         State GetCellState(Coordinates coordinates);
         void SetCellState(Coordinates coordinates, State newState);
-        void ShowGrid();
-        void ShowGridSecret();
+        void ShowGrid(bool isHidden);
     }
 }

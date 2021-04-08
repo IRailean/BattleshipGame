@@ -1,6 +1,7 @@
 ﻿using BattleshipGame.Enums;
 using BattleshipGame.Interfaces;
 using BattleshipGame.Ships;
+using Interfaces;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -12,25 +13,21 @@ namespace BattleshipGame
     {
         private int NumberOfShips { get; set; }
         public IGrid _grid { get; set; }
-        public Game()
+        public IShipsCreator _shipsCreator { get; set; }
+        public Game(IGrid grid, IShipsCreator shipsCreator)
         {
-            var config = ReadConfig();
+            _grid = grid;
+            _shipsCreator = shipsCreator;
 
-            _grid = new Grid(config.GetValue<int>("GridSize:Width"), config.GetValue<int>("GridSize:Height"));
-
-            var shipsCreator = new ShipsCreator(new ShipAllocator(_grid), 
-                config.GetSection("Ships").Get<Dictionary<string, string>>());
-            
-            //Add ships
-            shipsCreator.CreateShips();
-            NumberOfShips = shipsCreator.NumberOfShipsCreated;
+            _shipsCreator.CreateShips();
+            NumberOfShips = _shipsCreator.NumberOfShipsCreated;
 
             PlayGame();
         }
 
         private void PlayGame()
         {
-            _grid.ShowGrid();
+            _grid.ShowGrid(false);
 
             while (NumberOfShips != 0)
             {
@@ -40,17 +37,10 @@ namespace BattleshipGame
 
                 var coords = ProcessCommand(command);
 
+                Console.Clear();
                 MakeMove(coords);
-                _grid.ShowGridSecret();
+                _grid.ShowGrid(true);
             }
-        }
-
-        private IConfiguration ReadConfig()
-        {
-            return new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("gameSettings.json")
-                .Build();
         }
 
         private Coordinates ProcessCommand(string command)
