@@ -1,31 +1,34 @@
 ﻿using BattleshipGame.Enums;
 using BattleshipGame.Interfaces;
 using BattleshipGame.Ships;
+using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace BattleshipGame
 {
     public class Game
     {
+        private int NumberOfShips { get; set; }
         public Game()
         {
-            var grid = new Grid(10, 10);
+            var config = ReadConfig();
 
-            var shipAllocator = new ShipAllocator(grid);
-            if (shipAllocator is null)
-            {
-                Console.WriteLine("NULL");
-            }
+            var grid = new Grid(config.GetValue<int>("GridSize:Width"), config.GetValue<int>("GridSize:Height"));
+
+            var shipsCreator = new ShipsCreator(new ShipAllocator(grid), 
+                config.GetSection("Ships").Get<Dictionary<string, string>>());
+            
+            //Ass ships
+            shipsCreator.CreateShips();
+            NumberOfShips = shipsCreator.NumberOfShipsCreated;
 
             string command = "";
 
-            var ship = new Battleship();
-            shipAllocator.AddShip(ship);
-            shipAllocator.AddShip(ship);
-
             grid.ShowGrid();
 
-            while (command != "STOP")
+            while (NumberOfShips != 0)
             {
                 command = Console.ReadLine();
                 if (command == "STOP") break;
@@ -51,6 +54,11 @@ namespace BattleshipGame
                         Console.WriteLine("Hit!");
                         grid.SetCellState(x, y, State.HasShipChecked);
                         grid.GetShipAt(x, y).Hit();
+
+                        if (grid.GetShipAt(x, y).IsSunk)
+                        {
+                            NumberOfShips--;
+                        }
                     }
                     else if (state == State.HasShipChecked)
                     {
@@ -63,5 +71,14 @@ namespace BattleshipGame
 
             Console.WriteLine("Hello world");
         }
+
+        private IConfiguration ReadConfig()
+        {
+            return new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("gameSettings.json")
+                .Build();
+        }
+        
     }
 }

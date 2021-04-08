@@ -1,0 +1,11 @@
+{
+    "GridSize": {
+        "Width": 10,
+        "Height": 10
+    },
+
+    "Ships": {
+        "Battleship": 1,
+        "Destroyer": 2
+    }
+}
