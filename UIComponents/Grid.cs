@@ -4,7 +4,7 @@ using BattleshipGame.Ships;
 using System;
 using System.Collections.Generic;
 
-namespace BattleshipGame
+namespace BattleshipGame.UIComponents
 {
     public class Grid : IGrid
     {
@@ -19,15 +19,9 @@ namespace BattleshipGame
             InitializeCells();
         }
 
-        public int GetSize()
-        {
-            return Cells.Count;
-        }
-        public Ship GetShipAt(Coordinates coordinates)
-        {
-            return AreValidCoords(coordinates) ? Cells[coordinates.X][coordinates.Y].Ship : null;
-        }
+        public int GetSize() => Cells.Count;
 
+        public Ship GetShipAt(Coordinates coordinates) => AreValidCoords(coordinates) ? Cells[coordinates.X][coordinates.Y].Ship : null;
         public Cell GetCell(Coordinates coordinates) => AreValidCoords(coordinates) 
             ? Cells[coordinates.X][coordinates.Y] : null;
         public State GetCellState(Coordinates coordinates) => AreValidCoords(coordinates) 

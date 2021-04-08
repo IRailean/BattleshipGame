@@ -1,13 +1,10 @@
 ﻿using BattleshipGame.Enums;
+using BattleshipGame.Helpers;
 using BattleshipGame.Interfaces;
 using BattleshipGame.Ships;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BattleshipGame
+namespace BattleshipGame.Allocators
 {
     class ShipAllocator : IShipAllocator
     {

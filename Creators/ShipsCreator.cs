@@ -4,7 +4,7 @@ using BattleshipGame.Interfaces;
 using BattleshipGame.Ships;
 using Interfaces;
 
-namespace BattleshipGame
+namespace BattleshipGame.Creators
 {
     public class ShipsCreator : IShipsCreator
     {

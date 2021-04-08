@@ -1,10 +1,7 @@
 ﻿using BattleshipGame.Enums;
 using BattleshipGame.Ships;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace BattleshipGame
+namespace BattleshipGame.UIComponents
 {
     public class Cell
     {

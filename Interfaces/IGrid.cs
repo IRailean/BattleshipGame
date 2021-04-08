@@ -1,10 +1,6 @@
 ﻿using BattleshipGame.Enums;
 using BattleshipGame.Ships;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BattleshipGame.UIComponents;
 
 namespace BattleshipGame.Interfaces
 {

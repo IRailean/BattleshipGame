@@ -1,13 +1,9 @@
 ﻿using BattleshipGame.Enums;
 using BattleshipGame.Interfaces;
-using BattleshipGame.Ships;
 using Interfaces;
-using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.IO;
 
-namespace BattleshipGame
+namespace BattleshipGame.Games
 {
     public class Game
     {
@@ -56,20 +52,26 @@ namespace BattleshipGame
         {
             if (NumberOfShips == 0)
             {
+                Console.BackgroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("                               ");
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.WriteLine("Congratulations, you have won!");
+                Console.BackgroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("                               ");
+                Console.BackgroundColor = ConsoleColor.Black;
             }
         }
         private Coordinates ProcessCommand(string command)
         {
             if (command is null) return null;
 
-            if (command.Length != 2) 
+            if (command.Length != 2 && command.Length != 3) 
             {
                 return null;
             }
             int x = command[0] - 'A';
-            int y = command[1] - '0' - 1;
-            
+            int y = (command.Length == 3 && command[1] == '1' && command[2] == '0') ? 10 - 1 : command[1] - '0' - 1;
+
             if (x < 0 || x > _grid.GetSize() || y < 0 || y > _grid.GetSize())
             {
                 return null;
