@@ -86,7 +86,7 @@ namespace BattleshipGame.UIComponents
             Console.Write("     ");
             for (int j = 0; j < Cells.Count; j++)
             {
-                Console.Write($"{j + 1} ");
+                Console.Write($"{j} ");
             }
             Console.WriteLine();
             Console.Write("     ");

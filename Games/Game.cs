@@ -64,12 +64,12 @@ namespace BattleshipGame.Games
         {
             if (command is null) return null;
 
-            if (command.Length != 2 && command.Length != 3) 
+            if (command.Length != 2)
             {
                 return null;
             }
             int x = command[0] - 'A';
-            int y = (command.Length == 3 && command[1] == '1' && command[2] == '0') ? 10 - 1 : command[1] - '0' - 1;
+            int y = command[1] - '0';
 
             if (x < 0 || x > _grid.GetSize() || y < 0 || y > _grid.GetSize())
             {
