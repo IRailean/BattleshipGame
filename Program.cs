@@ -24,8 +24,9 @@ namespace BattleshipGame
 
         private static IConfiguration ReadConfig()
         {
+            System.Console.WriteLine(Directory.GetCurrentDirectory());
+
             return new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("gameSettings.json")
                 .Build();
         }
