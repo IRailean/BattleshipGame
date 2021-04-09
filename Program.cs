@@ -5,6 +5,7 @@ using BattleshipGame.Games;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.IO;
+using Options;
 
 namespace BattleshipGame
 {
@@ -14,10 +15,16 @@ namespace BattleshipGame
         {
             var config = ReadConfig();
 
-            var grid = new Grid(config.GetValue<int>("GridSize:Size"));
+            var gridOptions = config.GetSection(GridOptions.Grid)
+                            .Get<GridOptions>();
+
+            var grid = new Grid(gridOptions.Size);
+
+            var shipsOptions = config.GetSection(ShipsOptions.Ships)
+                            .Get<ShipsOptions>();
 
             var shipsCreator = new ShipsCreator(new ShipAllocator(grid), 
-                config.GetSection("Ships").Get<Dictionary<string, string>>());
+                shipsOptions.ShipsConfig);
 
             var game = new Game(grid, shipsCreator);
         }
