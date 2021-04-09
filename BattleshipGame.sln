@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleshipGame", "BattleshipGame.csproj", "{904D343E-AA7F-4F3B-AB67-D551D77434F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleshipGame", "BattleshipGame\BattleshipGame.csproj", "{AFD5770E-B658-40F7-9099-C9ED2173E646}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleshipGameTests", "..\BattleshipGameTests\BattleshipGameTests.csproj", "{AC001D16-48CB-4242-AC14-2FD7C4745A2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleshipGameTests", "BattleshipGameTests\BattleshipGameTests.csproj", "{A50E2F12-5F8E-49E3-9BBB-485FF88D04EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{904D343E-AA7F-4F3B-AB67-D551D77434F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{904D343E-AA7F-4F3B-AB67-D551D77434F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{904D343E-AA7F-4F3B-AB67-D551D77434F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{904D343E-AA7F-4F3B-AB67-D551D77434F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC001D16-48CB-4242-AC14-2FD7C4745A2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC001D16-48CB-4242-AC14-2FD7C4745A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC001D16-48CB-4242-AC14-2FD7C4745A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC001D16-48CB-4242-AC14-2FD7C4745A2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFD5770E-B658-40F7-9099-C9ED2173E646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFD5770E-B658-40F7-9099-C9ED2173E646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFD5770E-B658-40F7-9099-C9ED2173E646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFD5770E-B658-40F7-9099-C9ED2173E646}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A50E2F12-5F8E-49E3-9BBB-485FF88D04EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A50E2F12-5F8E-49E3-9BBB-485FF88D04EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A50E2F12-5F8E-49E3-9BBB-485FF88D04EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A50E2F12-5F8E-49E3-9BBB-485FF88D04EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
