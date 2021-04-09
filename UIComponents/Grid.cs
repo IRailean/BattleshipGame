@@ -8,13 +8,11 @@ namespace BattleshipGame.UIComponents
 {
     public class Grid : IGrid
     {
-        private readonly int _width;
-        private readonly int _height;
+        private readonly int _size;
         private List<List<Cell>> Cells { get ; set; }
-        public Grid(int width, int height)
+        public Grid(int size)
         {
-            _width = width;
-            _height = height;
+            _size = size;
 
             InitializeCells();
         }
@@ -100,10 +98,10 @@ namespace BattleshipGame.UIComponents
         private void InitializeCells()
         {
             Cells = new List<List<Cell>>();
-            for (int i = 0; i < _height; i++)
+            for (int i = 0; i < _size; i++)
             {
                 var row = new List<Cell>();
-                for (int j = 0; j < _width; j++)
+                for (int j = 0; j < _size; j++)
                 {
                     row.Add(new Cell());
                 }

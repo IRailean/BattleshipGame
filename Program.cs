@@ -14,7 +14,7 @@ namespace BattleshipGame
         {
             var config = ReadConfig();
 
-            var grid = new Grid(config.GetValue<int>("GridSize:Width"), config.GetValue<int>("GridSize:Height"));
+            var grid = new Grid(config.GetValue<int>("GridSize:Size"));
 
             var shipsCreator = new ShipsCreator(new ShipAllocator(grid), 
                 config.GetSection("Ships").Get<Dictionary<string, string>>());

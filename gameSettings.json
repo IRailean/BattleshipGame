@@ -1,7 +1,6 @@
 {
     "GridSize": {
-        "Width": 10,
-        "Height": 10
+        "Size": 10
     },
 
     "Ships": {
