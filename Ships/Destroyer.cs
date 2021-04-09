@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BattleshipGame.Ships
 {
-    class Destroyer : Ship
+    public class Destroyer : Ship
     {
         public Destroyer() : base("Destroyer", 4)
         {

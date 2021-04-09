@@ -11,7 +11,7 @@ namespace BattleshipGame.UIComponents
         public Cell() {}
         public void SetShip(Ship ship)
         {
-            if (Ship is null && State == State.EmptyNotChecked)
+            if (Ship is null && State == State.EmptyNotChecked && ship is not null)
             {
                 Ship = ship;
                 ChangeState(State.HasShipNotChecked);
@@ -20,7 +20,10 @@ namespace BattleshipGame.UIComponents
 
         public void ChangeState(State newState)
         {
-            State = newState;
+            if (newState != State.Default)
+            {
+                State = newState;
+            }
         }
     }
 }

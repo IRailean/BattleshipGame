@@ -68,17 +68,17 @@ namespace BattleshipGame.UIComponents
                 Console.WriteLine();
             }
         }
-        private void SetConsoleColor(char mark)
+        private static void SetConsoleColor(char mark)
         {
-            switch (mark)
+            Console.ForegroundColor = mark switch
             {
-                case 'O': Console.ForegroundColor = ConsoleColor.Green; break;
-                case 'S': Console.ForegroundColor = ConsoleColor.Red; break;
-                case 'X': Console.ForegroundColor = ConsoleColor.Yellow; break;
-                default: Console.ForegroundColor = ConsoleColor.White; break;
-            }
+                'O' => ConsoleColor.Green,
+                'S' => ConsoleColor.Red,
+                'X' => ConsoleColor.Yellow,
+                _ => ConsoleColor.White,
+            };
         }
-        private void ResetConsoleColor() => Console.ForegroundColor = ConsoleColor.White;
+        private static void ResetConsoleColor() => Console.ForegroundColor = ConsoleColor.White;
         private void DrawFirstRow()
         {
             Console.Write("     ");
